@@ -1,3 +1,7 @@
 VendorHoursIntent what are the hours for {v}
 VendorHoursIntent {v} hours
 VendorHoursIntent when does {v} close
+VendorHoursIntent for {v} hours
+VendorHoursIntent what time {v} closes
+VendorHoursIntent when is {v} open until
+VendorHoursIntent what time is {v} open until
