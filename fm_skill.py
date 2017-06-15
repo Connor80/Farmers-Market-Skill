@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import urllib.request
 import csv
 import itertools
+import urllib.request as urllib2
 from flask import Flask, render_template
 from flask_ask import Ask, statement, question, session
 

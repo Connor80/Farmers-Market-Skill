@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib.request
+import urllib.request as urllib2
 import csv
 import itertools
 
@@ -32,8 +33,13 @@ def getHours(v):
         list1 = (n,m)
     return list1
 
+
+
+
 def stateHours(v):
     if (v is None):
+ #       reprompt_show = render_template("reprompt_vendor")
+#        return question(reprompt_vendor)
         print("None")
     else:
         filVendor = processVendorName(v)
@@ -42,6 +48,8 @@ def stateHours(v):
         v_hours = hours[1]
         if ("Hours:" in v_hours):
             v_hours = v_hours.replace("Hours:", "")
+#        vendorHours_msg = render_template('vendor_hours', v=v, list1=list1)
+#        return statement(vendorHours_msg)
         print("The hours for " + v_name + " are " + v_hours + ".")
 
 stateHours(v)
