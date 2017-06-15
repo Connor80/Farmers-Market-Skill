@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
-import urllib.request
-import urllib.request as urllib2
+import requests
 import csv
 import itertools
 
@@ -19,11 +18,11 @@ def processVendorName(v):
 
 def getHours(v):
     url = 'https://dallasfarmersmarket.org/directory/{}'.format(v).replace(" ", "-")
-    headers = {}
+ #   headers = {}
     headers = {'User-Agent': 'Mozilla/5.0'}
-    req = urllib.request.Request(url, headers=headers)
-    r = urllib.request.urlopen(req)
-    soup = BeautifulSoup(r, "lxml")
+    req = requests.post(url, headers=headers)
+    r = requests.get(req)
+    soup = BeautifulSoup(req, "lxml")
 
     url_hours = soup.find("div", {"class":"w2dc-field-output-block-9"}).get_text().replace("\n", " ").replace("\t", " ").replace("\r", " ").replace("\s+", " ").encode('ascii', 'ignore').decode('ascii')
     url_vendor = soup.find("h2", {"itemprop":"name"}).get_text().encode('ascii', 'ignore').decode('ascii')
