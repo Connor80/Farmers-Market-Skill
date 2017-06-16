@@ -35,13 +35,13 @@ def getHours(v):
         req = urllib.request.Request(url)
         r = urllib.request.urlopen(req)
         soup = BeautifulSoup(r, "lxml")
-
-        url = 'http://www.canerosso.com/deep-ellum'
-        req = urllib.request.Request(url)
-        r = urllib.request.urlopen(req)
-        soup = BeautifulSoup(r, "lxml")
         rosso_hours = soup.find("div", {"class":"html-block"}).get_text().replace(";", " and").replace("Mon", "Monday").replace("Thurs", "Thursday").replace(":", " ").replace("Fri", "Friday").replace("Sat", "Saturday").replace("Sun", "Sunday").replace("HOURS", "")
-        return rosso_hours
+        rosso_name = soup.find("div", {"id":"OT_logoLink"}).get_text().replace(" - Deep Ellum (188800), Dallas - Fort Worth Reservations", "")
+        cr_name.append(rosso_name)
+        cr_hours.append(rosso_hours)
+        for m, n in list(zip(cr_name, cr_hours)):
+            c_r = (m,n)
+        return c_r
     else:
         url = 'https://dallasfarmersmarket.org/directory/{}'.format(v).replace(" ", "-")
         headers = {}
@@ -66,9 +66,9 @@ def stateHours(v):
     elif v == "Cane Rosso":
         filVendor = processVendorName(v)
         hours = getHours(filVendor)
-        cane_name = v
-        cane_hours = hours
-        vendorHours_msg = render_template('vendor_hours', v=v, cane_name = cane_name, cane_hours = cane_hours)
+        v_name = cr_name[0]
+        v_hours = cr_hours[0]
+        vendorHours_msg = render_template('vendor_hours', v=v, v_name = v_name, v_hours = v_hours)
         return statement(vendorHours_msg)
     else:
         filVendor = processVendorName(v)

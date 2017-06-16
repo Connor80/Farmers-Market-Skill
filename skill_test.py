@@ -3,9 +3,12 @@ import urllib.request
 import csv
 import itertools
 
-v = "Cane Rosso"
+v = "pizza"
 hours = []
 vendor = []
+cr_name = []
+cr_hours = []
+c_r = []
 
 def processVendorName(v):
     vendorSynonymDict = {}
@@ -19,19 +22,18 @@ def processVendorName(v):
         return v
 
 def getHours(v):
-    if (v == "Cane Rosso"):
-        url = 'http://www.canerosso.com/deep-ellum'
-        req = urllib.request.Request(url)
-        r = urllib.request.urlopen(req)
-        soup = BeautifulSoup(r, "lxml")
-
+    if v == "Cane Rosso":
         url = 'http://www.canerosso.com/deep-ellum'
         req = urllib.request.Request(url)
         r = urllib.request.urlopen(req)
         soup = BeautifulSoup(r, "lxml")
         rosso_hours = soup.find("div", {"class":"html-block"}).get_text().replace(";", " and").replace("Mon", "Monday").replace("Thurs", "Thursday").replace(":", " ").replace("Fri", "Friday").replace("Sat", "Saturday").replace("Sun", "Sunday").replace("HOURS", "")
-
-        return rosso_hours
+        rosso_name = soup.find("div", {"id":"OT_logoLink"}).get_text().replace(" - Deep Ellum (188800), Dallas - Fort Worth Reservations", "")
+        cr_name.append(rosso_name)
+        cr_hours.append(rosso_hours)
+        for m, n in list(zip(cr_name, cr_hours)):
+            c_r = (m,n)
+        return c_r
     else:
         url = 'https://dallasfarmersmarket.org/directory/{}'.format(v).replace(" ", "-")
         headers = {}
@@ -54,9 +56,9 @@ def stateHours(v):
     elif v == "Cane Rosso":
         filVendor = processVendorName(v)
         hours = getHours(filVendor)
-        cane_name = "Cane Rosso"
-        cane_hours = hours
-        print("The hours for " + str(cane_name) + " are " + str(cane_hours) + ".")
+        v_name = cr_name[0]
+        v_hours = cr_hours[0]
+        print("The hours for " + v_name + " are " + v_hours + ".")
     else:
         filVendor = processVendorName(v)
         hours = getHours(filVendor)
