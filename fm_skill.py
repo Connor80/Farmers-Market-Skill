@@ -10,6 +10,9 @@ ask = Ask(app, "/")
 
 hours = []
 vendor = []
+cr_name = []
+cr_hours = []
+c_r = []
 
 @ask.launch
 def new_ask():
