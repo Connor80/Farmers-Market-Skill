@@ -27,7 +27,8 @@ def getHours(v):
         req = urllib.request.Request(url)
         r = urllib.request.urlopen(req)
         soup = BeautifulSoup(r, "lxml")
-        rosso_hours = soup.find("div", {"class":"html-block"}).get_text().replace(";", " and").replace("Mon", "Monday").replace("Thurs", "Thursday").replace(":", " ").replace("Fri", "Friday").replace("Sat", "Saturday").replace("Sun", "Sunday").replace("HOURS", "")
+        rosso_hours = soup.find("div", {"class":"html-block"}).get_text().replace(";", " and").replace("Mon", "Monday"). \
+                    replace("Thurs", "Thursday").replace("Wed", "Wednesday").replace(":", " ").replace("BRUNCH", "Brunch is ").replace("HAPPY HOUR", "Happy Hour is ").replace("PM", "PM. ").replace("and", "for lunch, then re open for dinner from").replace("PMFri", "PM Friday").replace("Sat", "Saturday").replace("Sun", "Sunday").replace("HOURS", "")
         rosso_name = soup.find("div", {"id":"OT_logoLink"}).get_text().replace(" - Deep Ellum (188800), Dallas - Fort Worth Reservations", "")
         cr_name.append(rosso_name)
         cr_hours.append(rosso_hours)

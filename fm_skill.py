@@ -38,8 +38,13 @@ def getHours(v):
         req = urllib.request.Request(url)
         r = urllib.request.urlopen(req)
         soup = BeautifulSoup(r, "lxml")
-        rosso_hours = soup.find("div", {"class":"html-block"}).get_text().replace(";", " and").replace("Mon", "Monday").replace("Thurs", "Thursday").replace(":", " ").replace("Fri", "Friday").replace("Sat", "Saturday").replace("Sun", "Sunday").replace("HOURS", "")
-        rosso_name = soup.find("div", {"id":"OT_logoLink"}).get_text().replace(" - Deep Ellum (188800), Dallas - Fort Worth Reservations", "")
+        rosso_hours = soup.find("div", {"class":"html-block"}).get_text().replace(";", " and") \
+            .replace("Mon", "Monday").replace("Thurs", "Thursday").replace("Wed", "Wednesday") \
+            .replace(":", " ").replace("BRUNCH", "Brunch is ").replace("HAPPY HOUR", "Happy Hour is ") \
+            .replace("PM", "PM. ").replace("and", "for lunch, then re open for dinner from") \
+            .replace("PMFri", "PM Friday").replace("Sat", "Saturday").replace("Sun", "Sunday").replace("HOURS", "")
+        rosso_name = soup.find("div", {"id":"OT_logoLink"}).get_text() \
+            .replace(" - Deep Ellum (188800), Dallas - Fort Worth Reservations", "")
         cr_name.append(rosso_name)
         cr_hours.append(rosso_hours)
         for m, n in list(zip(cr_name, cr_hours)):
@@ -53,8 +58,11 @@ def getHours(v):
         r = urllib.request.urlopen(req)
         soup = BeautifulSoup(r, "lxml")
 
-        url_hours = soup.find("div", {"class":"w2dc-field-output-block-9"}).get_text().replace("\n", " ").replace("\t", " ").replace("\r", " ").replace("\s+", " ").encode('ascii', 'ignore').decode('ascii')
-        url_vendor = soup.find("h2", {"itemprop":"name"}).get_text().encode('ascii', 'ignore').decode('ascii')
+        url_hours = soup.find("div", {"class":"w2dc-field-output-block-9"}).get_text() \
+            .replace("\n", " ").replace("\t", " ").replace("\r", " ").replace("\s+", " ") \
+            .encode('ascii', 'ignore').decode('ascii')
+        url_vendor = soup.find("h2", {"itemprop":"name"}).get_text().encode('ascii', 'ignore') \
+            .decode('ascii')
         hours.append(url_hours)
         vendor.append(url_vendor)
         for m, n in list(zip(hours,vendor)):
