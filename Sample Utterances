@@ -1,3 +1,5 @@
+WakeIntent ask favorites
+VendorHoursIntent {v}
 VendorHoursIntent what are the hours for {v}
 VendorHoursIntent {v} hours
 VendorHoursIntent when does {v} close

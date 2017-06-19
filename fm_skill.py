@@ -21,6 +21,13 @@ def new_ask():
     return question(welcome) \
         .reprompt(reprompt)
 
+@ask.intent('WakeIntent')
+def wake():
+    welcome = render_template('welcome')
+    reprompt = render_template('reprompt')
+    return question(welcome) \
+        .reprompt(reprompt)
+
 def processVendorName(v):
     vendorSynonymDict = {}
     vendorSynonymDict['popcorn'] = "doc popcorn"
@@ -85,7 +92,10 @@ def stateHours(v):
         v_name = cr_name[0]
         v_hours = cr_hours[0]
         vendorHours_msg = render_template('vendor_hours', v=v, v_name = v_name, v_hours = v_hours)
-        return statement(vendorHours_msg)
+        return statement(vendorHours_msg) \
+            .standard_card(title='Cane Rosso',
+                       text=v_hours,
+                       small_image_url='https://static1.squarespace.com/static/55c9f9bce4b0423ff5aafd5f/55c9fe36e4b0e3531a263a71/55e61d42e4b0143776db8162/1441144132245/IlCaneRossoLogo_Red+with+Type_Woodcut_Vertical-01.jpg?format=500w')
     else:
         filVendor = processVendorName(v)
         hours = getHours(filVendor)
@@ -94,7 +104,11 @@ def stateHours(v):
         if ("Hours:" in v_hours):
             v_hours = v_hours.replace("Hours:", "")
         vendorHours_msg = render_template('vendor_hours', v=v, v_name = v_name, v_hours = v_hours)
-        return statement(vendorHours_msg)
+        return statement(vendorHours_msg) \
+            .standard_card(title=v_name,
+                       text=v_hours,
+                       small_image_url='https://pbs.twimg.com/profile_images/507678913531633665/vz6QhK_B.jpeg',
+                       large_image_url='https://dallasfarmersmarket.org/wp-content/uploads/2015/11/the-market-map.jpg')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,6 +3,7 @@
       {"intent": "AMAZON.CancelIntent"},
       {"intent": "AMAZON.HelpIntent"},
       {"intent": "AMAZON.StopIntent"},
+      {"intent": "WakeIntent"},
       {"intent": "VendorHoursIntent", "slots": [{"name": "v", "type": "LIST_OF_VENDORS"}]},
   ]
 }

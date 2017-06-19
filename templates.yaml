@@ -4,4 +4,4 @@ repromt: I did not catch that. For which vendor would you like to hear the hours
 
 vendor_hours: The hours for {{ v_name }} are {{ v_hours }}.
 
-reprompt_vendor: I didn't quite understand that. For what vendor did you want the hours?
+reprompt_vendor: I didn't quite understand that. For which vendor did you want the hours?
